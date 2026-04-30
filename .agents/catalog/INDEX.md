@@ -1,10 +1,10 @@
-# Índice de Temas — Repertorio Arsys
+# Índice de Temas Técnicos — Repertorio Arsys
 
-Este índice se carga **solo cuando** se activa `@repertorio`. Lista los temas disponibles y orienta a Claude para entrar al correcto.
+Este índice se carga **solo cuando** se activa `@repertorio`. Lista los temas **técnicos transversales** del equipo. Para temas de negocio (con owner por persona) ver [PERSONAS.md](PERSONAS.md).
 
 ---
 
-## Temas
+## Temas técnicos
 
 | Tema | Identificadores en el prompt | Workflow | Carpeta |
 |---|---|---|---|
@@ -18,13 +18,20 @@ Este índice se carga **solo cuando** se activa `@repertorio`. Lista los temas d
 
 ---
 
+## Temas de negocio
+
+Los temas de negocio (nómina, contabilidad, facturación, etc.) NO viven aquí — viven en `personas/<owner>/temas/<dominio>/`. Para listarlos y encontrar su owner, consultar [PERSONAS.md](PERSONAS.md).
+
+---
+
 ## Cómo navegar
 
 1. **Leer este índice primero** (1 sola lectura por consulta).
 2. **Identificar el tema** comparando el prompt con la columna *Identificadores*.
-3. **Entrar a `temas/<tema>/`** y leer su `README.md` para entender alcance.
-4. **Si hay `WORKFLOW.md`** → ejecutar pasos en orden.
-5. **Si no hay WORKFLOW** → listar `skills/` y elegir las relevantes.
+3. Si el tema NO está en esta tabla → consultar `PERSONAS.md` (puede ser un tema de negocio).
+4. **Entrar a `temas/<tema>/`** (técnico) o a `personas/<owner>/temas/<tema>/` (negocio) y leer su `README.md`.
+5. **Si hay `WORKFLOW.md`** → ejecutar pasos en orden.
+6. **Si no hay WORKFLOW** → listar `skills/` y elegir las relevantes.
 
 **No leer múltiples temas a la vez** salvo que el usuario lo pida explícitamente.
 
