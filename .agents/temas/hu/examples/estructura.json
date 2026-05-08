@@ -1,0 +1,14 @@
+{
+  "id": "HU-001",
+  "name": "Navegación en menú",
+  "mode": "frontend",
+  "actor": "usuario",
+  "action": "interactuar con botones del menú y carteles",
+  "outcome": "navegar en la aplicación",
+  "acceptance_criteria": [
+    "Los botones deben responder al clic",
+    "Se debe navegar a la sección correspondiente",
+    "Los carteles deben ejecutar su acción",
+    "No deben existir elementos sin funcionalidad"
+  ]
+}
