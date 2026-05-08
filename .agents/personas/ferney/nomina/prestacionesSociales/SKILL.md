@@ -13,7 +13,7 @@ descripcion: Skill empresarial para soporte funcional, técnico y de seguridad d
 
 Skill orientada a soporte **funcional, técnico y de seguridad** del módulo **Prestaciones Sociales** del sistema de Nómina de Arsys. Cubre el formulario y sus **7 pestañas** (Liquidación de Prima, Consulta Primas Liquidadas, Liquidación de Cesantías, Consulta de Cesantías Liquidadas, Planilla Única, Provisiones, Trazabilidad), las **6 tablas SQL Server** del modelo (`Nomina.Prima`, `Nomina.EmpleadoPrima`, `Nomina.PrimaCredito`, `Nomina.Cesantia`, `Nomina.EmpleadoCesantia`, `Nomina.CesantiasCredito`) y los **9 permisos** que controlan el acceso al módulo.
 
-> Esta Skill se basa **únicamente** en el documento `PrestacionesSociales.pdf`. Cualquier dato no presente en la fuente queda señalado como _"no documentado en la fuente"_.
+> Esta Skill se basa **únicamente** en el documento `PrestacionesSociales.pdf`. Cualquier dato no presente en la fuente queda señalado como _"Pendiente de documentar"_.
 
 ---
 
@@ -272,7 +272,7 @@ Pestaña Liquidación de Cesantías
 
 Pestaña Planilla Única ──► consulta de conceptos por empleado → archivo plano DIAN
 
-Pestaña Provisiones ──► consulta sobre las provisiones (tabla origen no documentada en la fuente)
+Pestaña Provisiones ──► consulta sobre las provisiones (tabla origen Pendiente de documentar)
 
 Pestaña Trazabilidad ──► consulta sobre Nomina.Prima y Nomina.Cesantia con sus auditorías
 ```
@@ -288,7 +288,7 @@ Pestaña Trazabilidad ──► consulta sobre Nomina.Prima y Nomina.Cesantia co
 - La **Planilla Única** consume conceptos de pago de los empleados y produce un **archivo plano** para la DIAN.
 - Las **Provisiones** son un listado consolidado por empleado y concepto.
 
-> Procedimientos almacenados específicos del módulo: **no documentados en la fuente**.
+> Procedimientos almacenados específicos del módulo: **Pendiente de documentar**.
 
 ---
 
@@ -704,7 +704,7 @@ CÓMO RESPONDER:
 - Si la pregunta es de seguridad: lista los permisos relevantes y aclara qué hace
   cada uno.
 - Si te piden algo que NO está en el documento, dilo explícitamente:
-  "no está documentado en la fuente — habría que validarlo en el EDMX/código".
+  "Pendiente de documentar — habría que validarlo en el EDMX/código".
 - No inventes campos, conceptos, fórmulas o procedimientos almacenados.
 - Cuando el usuario sea desarrollador .NET, respeta las convenciones de Arsys:
   N capas + DDD, repositorios `IRepositorio*`/`Repositorio*`, dominios
@@ -731,14 +731,45 @@ LO QUE DEBES PODER HACER:
 
 ---
 
-## 20. Notas de mantenimiento de esta Skill
+## Mantenimiento y evolución de la Skill
 
-- **Fuente única**: `PrestacionesSociales.pdf`.
-- **Pendientes a confirmar contra BD/código**:
-  - Tabla(s) que respaldan **Provisiones** y **Conceptos para Planilla Única** (no aparecen en el diagrama de la fuente).
-  - Procedimientos almacenados que ejecutan los cálculos de prima y cesantías (no listados en la fuente).
-  - Catálogo exacto de **Tipo Planilla** y **Código AFP** en Planilla Única.
-  - Catálogo exacto de **Tipo Modelo** en Provisiones.
-  - Definición exacta del **archivo plano** que se carga a la DIAN (formato, columnas, separador).
-  - Cómo se marca operativamente una liquidación como **Definitiva** dentro de las tablas `Prima` / `Cesantia` (¿columna implícita en `descripcion` o en otra tabla?).
-- **Cuando se actualice**: si cambian semestres, porcentaje de intereses, permisos, columnas de las tablas o el esquema del plano DIAN, reflejarlo aquí y notificar a los suplentes del dominio.
+Esta Skill fue construida inicialmente a partir de contextualización textual, conocimiento funcional del negocio y documentación funcional y técnica disponible, pero está diseñada para evolucionar continuamente.
+
+### Reglas de mantenimiento
+
+- La documentación inicial corresponde a la fuente original usada para crear esta Skill (`PrestacionesSociales.pdf`).
+- Esta Skill puede enriquecerse posteriormente con:
+  - nuevos documentos funcionales,
+  - cambios del sistema,
+  - nuevas reglas de negocio,
+  - cambios en formularios,
+  - nuevas tablas o cambios en SQL Server,
+  - nuevos permisos o roles,
+  - decisiones del negocio,
+  - casos reales encontrados en soporte.
+- Toda nueva información agregada debe:
+  - mantener consistencia con la estructura actual,
+  - indicar fecha de actualización,
+  - indicar fuente del cambio,
+  - no eliminar conocimiento previo sin validación funcional.
+
+### Historial de actualizaciones
+
+| Fecha | Fuente | Cambio realizado | Responsable |
+| ----- | ------ | ---------------- | ----------- |
+| 2026-05-08 | `PrestacionesSociales.pdf` | Creación inicial de la Skill (7 pestañas, 6 tablas del modelo Prima/Cesantia, 9 permisos, roles inferidos, prompt base). | Ferney Acosta |
+
+### Información pendiente
+
+Marcar como **Pendiente de documentar** cualquier información que aún no exista o no haya sido documentada. No usar la frase "no documentado en la fuente": esta Skill debe poder evolucionar con nuevas fuentes.
+
+Pendientes actuales por validar contra BD / código de dominio:
+
+- Tabla(s) que respaldan **Provisiones** y **Conceptos para Planilla Única** — **Pendiente de documentar**.
+- Procedimientos almacenados que ejecutan los cálculos de prima y cesantías — **Pendiente de documentar**.
+- Catálogo exacto de **Tipo Planilla** y **Código AFP** en Planilla Única — **Pendiente de documentar**.
+- Catálogo exacto de **Tipo Modelo** en Provisiones — **Pendiente de documentar**.
+- Definición exacta del **archivo plano** que se carga a la DIAN (formato, columnas, separador) — **Pendiente de documentar**.
+- Cómo se marca operativamente una liquidación como **Definitiva** dentro de las tablas `Nomina.Prima` / `Nomina.Cesantia` (¿columna implícita en `descripcion` o en otra tabla?) — **Pendiente de documentar**.
+
+> Cuando se actualice la Skill: si cambian semestres, porcentaje de intereses, permisos, columnas de las tablas o el esquema del plano DIAN, reflejarlo aquí, agregar la fila correspondiente al **Historial de actualizaciones** y avisar a los suplentes del dominio.

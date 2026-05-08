@@ -21,7 +21,7 @@ Skill orientada a soporte **funcional y técnico** del proceso de **Incapacidade
 - El **procedimiento almacenado** `SpCalcularIncapacidadAPagarEmpleadoV2` que ejecuta el cálculo.
 - La **integración con Novedades** vía el campo `idNovedad`.
 
-> Esta Skill se basa **únicamente** en el documento `Incapacidad.pdf`. Cualquier dato no presente en la fuente queda señalado como _"no documentado en la fuente"_.
+> Esta Skill se basa **únicamente** en el documento `Incapacidad.pdf`. Cualquier dato no presente en la fuente queda señalado como _"Pendiente de documentar"_.
 
 ---
 
@@ -180,7 +180,7 @@ Renglones generados por el botón **Calcular**. Columnas visibles:
 | Valor Base | `IncapacidadDetalle.valorBase` |
 | Días | `IncapacidadDetalle.dias` |
 | Días Pagar | `IncapacidadDetalle.diasPago` |
-| Días Acumulados | _no documentado en la fuente — probablemente derivado_ |
+| Días Acumulados | _Pendiente de documentar — probablemente derivado_ |
 | Fecha Inicio | `IncapacidadDetalle.fechaInicio` |
 | Fecha Fin | `IncapacidadDetalle.fechaFin` |
 | Fecha Inicio Pago | `IncapacidadDetalle.fechaInicioPago` |
@@ -225,7 +225,7 @@ Responsabilidades documentadas:
 - **Llena** las tablas `Nomina.Incapacidad` y `Nomina.IncapacidadDetalle`.
 - Aplica la separación: **2 días empresa con `P048`** y **resto EPS con `P028` al 66.66 %**.
 
-> Detalles internos del SP (parámetros, transacciones, manejo de prórrogas, manejo de licencias de maternidad/paternidad y accidentes laborales): **no documentados en la fuente** — se deben revisar en la BD `ArsysNominaORF` antes de modificar la lógica.
+> Detalles internos del SP (parámetros, transacciones, manejo de prórrogas, manejo de licencias de maternidad/paternidad y accidentes laborales): **Pendiente de documentar** — se deben revisar en la BD `ArsysNominaORF` antes de modificar la lógica.
 
 ### 9.2 Punto de integración con Novedad
 
@@ -359,7 +359,7 @@ EmpleadoSociedadNomina (Tercero)
 
 - `tipoIncapacidad = 'Accidente Laboral'`.
 - Se requiere `idTerceroParaFiscalARL` para el recobro.
-- Los conceptos exactos los resuelve `SpCalcularIncapacidadAPagarEmpleadoV2` (regla específica: no documentada en la fuente).
+- Los conceptos exactos los resuelve `SpCalcularIncapacidadAPagarEmpleadoV2` (regla específica: Pendiente de documentar).
 
 ### Escenario D — Anulación
 
@@ -502,7 +502,7 @@ EXEC Nomina.SpCalcularIncapacidadAPagarEmpleadoV2
      @idIncapacidad = @idIncapacidad;  -- parámetros reales: validar contra la firma del SP
 ```
 
-> La firma exacta de `SpCalcularIncapacidadAPagarEmpleadoV2` **no está documentada en la fuente**. Antes de invocarlo, revisar `sys.parameters` o `sp_help` en la BD `ArsysNominaORF`.
+> La firma exacta de `SpCalcularIncapacidadAPagarEmpleadoV2` está **Pendiente de documentar**. Antes de invocarlo, revisar `sys.parameters` o `sp_help` en la BD `ArsysNominaORF`.
 
 ---
 
@@ -552,7 +552,7 @@ CÓMO RESPONDER:
   `SpCalcularIncapacidadAPagarEmpleadoV2`. Da SQL cuando aplique.
 - Si la pregunta involucra el detalle por concepto, explica el reparto P048/P028.
 - Si te piden algo que NO está en el documento, dilo explícitamente:
-  "no está documentado en la fuente — habría que validarlo en el SP / EDMX / código".
+  "Pendiente de documentar — habría que validarlo en el SP / EDMX / código".
 - No inventes campos, conceptos ni reglas (en especial: parámetros del SP, reglas de
   cálculo internas para Maternidad/Paternidad/ARL, semántica exacta de `tipo`,
   `pagoBase`, `fechaInicioIncapacidad` vs. `fechaInicio`).
@@ -576,14 +576,45 @@ LO QUE DEBES PODER HACER:
 
 ---
 
-## 17. Notas de mantenimiento de esta Skill
+## Mantenimiento y evolución de la Skill
 
-- **Fuente única**: `Incapacidad.pdf` + convención `P*`/`D*` provista por Ferney.
-- **Pendientes a confirmar contra BD/SP**:
-  - Firma y parámetros de `SpCalcularIncapacidadAPagarEmpleadoV2`.
-  - Reglas exactas de cálculo para Accidente Laboral, Maternidad, Paternidad y Enfermedad Profesional (porcentajes, días empresa vs. ARL/EPS/FP).
-  - Diferencia precisa entre `fechaInicio` y `fechaInicioIncapacidad`.
-  - Dominio de `tipo (smallint)` (códigos de Ambulatoria/Hospitalaria).
-  - Significado de `pagoBase (bit)` en `IncapacidadDetalle`.
-  - Catálogo de valores válidos en `tipoIncapacidad (varchar(50))` y su `tipoIncapacidadHomologado`.
-- **Cuando se actualice**: si cambian conceptos (`P048`/`P028`), porcentajes o reglas legales, reflejarlo aquí y avisar a los suplentes del dominio.
+Esta Skill fue construida inicialmente a partir de contextualización textual, conocimiento funcional del negocio y documentación funcional y técnica disponible, pero está diseñada para evolucionar continuamente.
+
+### Reglas de mantenimiento
+
+- La documentación inicial corresponde a la fuente original usada para crear esta Skill (`Incapacidad.pdf` + convención `P*`/`D*` provista por Ferney).
+- Esta Skill puede enriquecerse posteriormente con:
+  - nuevos documentos funcionales,
+  - cambios del sistema,
+  - nuevas reglas de negocio,
+  - cambios en formularios,
+  - nuevas tablas o cambios en SQL Server,
+  - nuevos permisos o roles,
+  - decisiones del negocio,
+  - casos reales encontrados en soporte.
+- Toda nueva información agregada debe:
+  - mantener consistencia con la estructura actual,
+  - indicar fecha de actualización,
+  - indicar fuente del cambio,
+  - no eliminar conocimiento previo sin validación funcional.
+
+### Historial de actualizaciones
+
+| Fecha | Fuente | Cambio realizado | Responsable |
+| ----- | ------ | ---------------- | ----------- |
+| 2026-05-08 | `Incapacidad.pdf` | Creación inicial de la Skill (formulario, tipos de incapacidad, reglas P048/P028, tablas `Nomina.Incapacidad` / `Nomina.IncapacidadDetalle`, SP `SpCalcularIncapacidadAPagarEmpleadoV2`, prompt base). | Ferney Acosta |
+
+### Información pendiente
+
+Marcar como **Pendiente de documentar** cualquier información que aún no exista o no haya sido documentada. No usar la frase "no documentado en la fuente": esta Skill debe poder evolucionar con nuevas fuentes.
+
+Pendientes actuales por validar contra BD / SP / código de dominio:
+
+- Firma y parámetros del SP `SpCalcularIncapacidadAPagarEmpleadoV2` — **Pendiente de documentar**.
+- Reglas exactas de cálculo para Accidente Laboral, Licencia de Maternidad, Licencia de Paternidad y Enfermedad Profesional (porcentajes, días empresa vs. ARL / EPS / FP) — **Pendiente de documentar**.
+- Diferencia precisa entre `fechaInicio` y `fechaInicioIncapacidad` en `Nomina.Incapacidad` — **Pendiente de documentar**.
+- Dominio del campo `tipo (smallint)` (códigos de Ambulatoria / Hospitalaria) — **Pendiente de documentar**.
+- Significado de `pagoBase (bit)` en `Nomina.IncapacidadDetalle` — **Pendiente de documentar**.
+- Catálogo de valores válidos en `tipoIncapacidad (varchar(50))` y su `tipoIncapacidadHomologado` — **Pendiente de documentar**.
+
+> Cuando se actualice la Skill: si cambian conceptos (`P048` / `P028`), porcentajes o reglas legales, reflejarlo aquí, agregar la fila correspondiente al **Historial de actualizaciones** y avisar a los suplentes del dominio.

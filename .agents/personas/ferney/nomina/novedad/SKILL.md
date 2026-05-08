@@ -13,7 +13,7 @@ descripcion: Skill empresarial para soporte funcional y técnico del módulo Nov
 
 Skill orientada a soporte funcional y técnico del módulo **Novedades** del sistema de **Nómina** de Arsys. Cubre el formulario individual, el formulario de **Novedades Masivas por Plano**, la tabla `Nomina.Novedad` y sus relaciones en la base de datos `ArsysNominaORF`, y cómo las novedades impactan los procesos de liquidación.
 
-> Esta Skill se basa **únicamente** en el documento `Novedades.pdf`. Cualquier dato que no esté en el documento queda marcado como _"no documentado en la fuente"_.
+> Esta Skill se basa **únicamente** en el documento `Novedades.pdf`. Cualquier dato que no esté en el documento queda marcado como _"Pendiente de documentar"_.
 
 ---
 
@@ -433,7 +433,7 @@ CÓMO RESPONDER:
 - Si la pregunta involucra el plano masivo, recuerda la estructura de 6 columnas y el
   separador `;`.
 - Si te piden algo que NO está en el documento fuente, dilo explícitamente:
-  "no está documentado en la fuente — habría que validarlo en el EDMX/código".
+  "Pendiente de documentar — habría que validarlo en el EDMX/código".
 - No inventes campos, conceptos ni reglas. No asumas comportamiento de columnas
   (`tipoValor`, `pendiente`, `idFormulario`, `acumulada`) si la pregunta exige
   precisión: pide confirmación contra el catálogo o el código de dominio.
@@ -457,11 +457,42 @@ LO QUE DEBES PODER HACER:
 
 ---
 
-## 11. Notas de mantenimiento de esta Skill
+## Mantenimiento y evolución de la Skill
 
-- **Fuente única**: `Novedades.pdf` + convención `P*`/`D*` provista por Ferney.
-- **Pendientes de confirmar contra EDMX/código**:
-  - Valores exactos del catálogo de `tipoValor` (¿1=valor, 2=horas, 3=%?).
-  - Semántica precisa de `pendiente`, `acumulada`, `idFormulario`.
-  - Nombres exactos de columnas FK (`idEmpleado` en `ContratoDetalle`, etc.).
-- **Cuando se actualice**: si cambian conceptos, columnas del plano o equivalencias horas día/mes, reflejarlo en este `SKILL.md` y avisar a los suplentes del dominio.
+Esta Skill fue construida inicialmente a partir de contextualización textual, conocimiento funcional del negocio y documentación funcional y técnica disponible, pero está diseñada para evolucionar continuamente.
+
+### Reglas de mantenimiento
+
+- La documentación inicial corresponde a la fuente original usada para crear esta Skill (`Novedades.pdf` + convención `P*`/`D*` provista por Ferney).
+- Esta Skill puede enriquecerse posteriormente con:
+  - nuevos documentos funcionales,
+  - cambios del sistema,
+  - nuevas reglas de negocio,
+  - cambios en formularios,
+  - nuevas tablas o cambios en SQL Server,
+  - nuevos permisos o roles,
+  - decisiones del negocio,
+  - casos reales encontrados en soporte.
+- Toda nueva información agregada debe:
+  - mantener consistencia con la estructura actual,
+  - indicar fecha de actualización,
+  - indicar fuente del cambio,
+  - no eliminar conocimiento previo sin validación funcional.
+
+### Historial de actualizaciones
+
+| Fecha | Fuente | Cambio realizado | Responsable |
+| ----- | ------ | ---------------- | ----------- |
+| 2026-05-08 | `Novedades.pdf` | Creación inicial de la Skill (formulario individual, novedades masivas por plano, tabla `Nomina.Novedad`, relaciones, prompt base). | Ferney Acosta |
+
+### Información pendiente
+
+Marcar como **Pendiente de documentar** cualquier información que aún no exista o no haya sido documentada. No usar la frase "no documentado en la fuente": esta Skill debe poder evolucionar con nuevas fuentes.
+
+Pendientes actuales por validar contra EDMX / código de dominio:
+
+- Valores exactos del catálogo de `tipoValor` (¿1 = valor, 2 = horas, 3 = %?) — **Pendiente de documentar**.
+- Semántica precisa de `pendiente`, `acumulada`, `idFormulario` en `Nomina.Novedad` — **Pendiente de documentar**.
+- Nombres exactos de columnas FK (por ejemplo `idEmpleado` en `ContratoDetalle`) — **Pendiente de documentar**.
+
+> Cuando se actualice la Skill: si cambian conceptos, columnas del plano o equivalencias horas día/mes, reflejarlo aquí, agregar la fila correspondiente al **Historial de actualizaciones** y avisar a los suplentes del dominio.
