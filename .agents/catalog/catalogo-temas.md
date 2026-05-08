@@ -12,7 +12,8 @@ Este índice se carga **solo cuando** se activa `@repertorio`. Lista los temas *
 | **Calidad** | "calidad", "estándares Arsys", "code review", "buenas prácticas", "convenciones" | Por definir | `temas/calidad/` |
 | **Documentación** | "README", "ADR", "changelog", "documenta", "manual" | Por definir | `temas/documentacion/` |
 | **Bugs** | "bug", "error", "fallo", "no funciona", "rompió", "incidente" | Por definir | `temas/bugs/` |
-| **Frontend** | "componente", "UI", "vista", "estilo", "responsive", "accesibilidad", "pantalla", "formulario", "grid", "layout", "WebForms", ".aspx", "DevExpress", "XtraGrid", "WinForms", "auditoría UX", "modernizar pantalla" | Por definir | `temas/frontend/` |
+<<<<<<< HEAD
+| **Frontend** | "componente", "UI", "vista", "estilo", "responsive", "accesibilidad", "pantalla", "formulario", "grid", "layout", "WebForms", ".aspx", "DevExpress", "XtraGrid", "WinForms", "auditoría UX", "modernizar pantalla", "versionado" | Por definir | `temas/frontend/` |
 | **Git** | "commit", "rama", "merge", "release", "git" | No | `temas/git/` |
 | **Meta** | "nueva skill", "crear skill", "agregar tema" | No | `temas/meta/` |
 | **Estándar IA** | "estándar IA", "ORF-STD-IA", "nombrar activo", "validar prompt", "9 secciones", "FUENTE-TIPO", "v1_0", "migrar Aniro", "catalogar activo", "estructura de prompt" | No | `temas/estandar-ia/` |
@@ -46,10 +47,13 @@ Los temas de negocio (nómina, contabilidad, facturación, etc.) NO viven aquí 
 | Calidad | 0 | — | 🟡 Placeholder |
 | Documentación | 0 | — | 🟡 Placeholder |
 | Bugs | 0 | — | 🟡 Placeholder |
-| Frontend | 1 (`SYS-CTX-AuditarUXLegacy_v1_0`) | — | ✅ Operativo |
-| Git | 1 (`SYS-CTX-ConventionalCommits_v1_0`) | — | ✅ Operativo |
-| Meta | 1 (`GOV-CTX-CrearActivoIA_v1_0`) | — | ✅ Operativo |
-| Estándar IA | 6 (NombrarActivoIA, NombreActivoIA, EstructurarPrompt, EstructuraPrompt, VersionarActivoIA, MigrarActivoIA) | — | ✅ Operativo |
+<<<<<<< HEAD
+| Frontend | 2 (ux-enterprise, version) | — | ✅ Operativo |
+=======
+| Frontend | 1 (ux-enterprise) | — | ✅ Operativo |
+>>>>>>> 0fb7e17492fadbb6d24ee9637dc3946b3d816e67
+| Git | 1 (commit-guides) | — | ✅ Operativo |
+| Meta | 1 (skill-creator) | — | ✅ Operativo |
 
 ---
 
