@@ -84,15 +84,100 @@ Cuando el KB combina varias fuentes (ej. entrevista + revisión de BD para valid
 
 ---
 
-## Frontmatter requerido por el ingester de ANIRO
+## Frontmatter canónico de un KB
 
-El ingester (`backend/src/rag/ingest.py`) **solo lee el frontmatter top-level** del archivo. Estos son los **3 campos obligatorios** que filtran qué chunk se sirve a qué usuario:
+El ingester (`backend/src/rag/ingest.py`) **solo lee 3 campos** del frontmatter para filtrar permisos (`proceso/nivel/perfil`). El resto son **metadata extendida** que viaja en el chunk y le da trazabilidad al humano y contexto al agente.
+
+### Plantilla completa (recomendada)
 
 ```yaml
 ---
-proceso: <slug>          # Dominio del RAG (ver tabla abajo)
-nivel: <nivel>           # publico | intermedio | restrictivo
-perfil: <perfil>         # funcional | tecnico | ambos
+# ─── DIMENSIONES DE FILTRADO (las lee el ingester — OBLIGATORIAS) ───
+proceso: <slug-dominio>            # comercializacion_pt, gestion_humana, etc.
+nivel: <publico|intermedio|restrictivo>
+perfil: <funcional|tecnico|ambos>
+
+# ─── CONTEXTO ORGANIZACIONAL (recomendados) ───
+subproceso:                        # Subdivisión opcional (ej. cartera_blanco dentro de gestion_financiera)
+area:                              # Nombre humano del área (ej. "Cartera Blanco")
+codigo:                            # Código oficial del SIG (ej. CP-FI-01-V1, SC-CP-01-V1, CB-FM-11-V1)
+tipo_fuente: <entrevista|isotools|extraccion-bd|mixta>
+fuente:                            # Detalle de la fuente:
+                                   #   - Si tipo_fuente=isotools → path del PDF (ej. "Cartera blanco/Caracterización y Políticas/CARACTERIZACION.pdf")
+                                   #   - Si tipo_fuente=entrevista → nombre de la persona (ej. "Laura Stefania Giraldo Chillón")
+                                   #   - Si tipo_fuente=extraccion-bd → host/base/path del código (ej. "ArsysNominaORF en olddto.orf.com")
+                                   #   - Si tipo_fuente=mixta → listar todas
+
+# ─── METADATA EXTENDIDA (usar cuando aplican) ───
+titulo:                            # Título humano del KB
+version:                           # v1.0, v2.0... (recomendado en KBs versionados)
+fecha:                             # YYYY-MM-DD del KB
+owner:                             # Persona o equipo responsable de mantener este KB
+empresas: []                       # Cuando aplica (ej. KBs multi-empresa: [Roa, TDH, IROA])
+bases_de_datos: []                 # Cuando es extracción técnica
+periodicidad:                      # Cuando aplica (Quincenal, Mensual, Anual)
+jurisdiccion:                      # Cuando aplica (Colombia, etc.)
+---
+```
+
+### Reglas
+
+| Regla | Por qué |
+|---|---|
+| Los 3 campos del primer bloque (`proceso/nivel/perfil`) son **obligatorios** | El ingester de ANIRO los lee para filtrar permisos |
+| `subproceso/area/codigo/tipo_fuente/fuente` son **recomendados** | Dan trazabilidad y permiten cross-reference con el doc original |
+| Si un campo NO APLICA → **dejarlo vacío** (no eliminarlo) | Consistencia visual + futurabilidad (si más tarde aplica, ya está el placeholder) |
+| Listas vacías → `[]` (formato YAML) | Estándar |
+| **Distinción clave**: `tipo_fuente` (categoría) vs `fuente` (detalle específico) | `tipo_fuente: isotools` + `fuente: <path del PDF>` |
+
+### Ejemplos reales del corpus
+
+**ISOTools (descarga del SIG)**:
+```yaml
+---
+proceso: comercializacion_pt
+nivel: intermedio
+perfil: ambos
+subproceso:
+area:
+codigo: CP-FI-01-V1
+tipo_fuente: isotools
+fuente: Comercializacion PT/Fichas de indicadores/FICHA_DE_INDICADORES_COMERCIALIZACION_PT.pdf
+---
+```
+
+**Entrevista a persona**:
+```yaml
+---
+proceso: comercializacion_pt
+nivel: intermedio
+perfil: ambos
+subproceso:
+area: Administración de Ventas
+codigo:
+tipo_fuente: entrevista
+fuente: Cristian Jhoan Serrato Mendoza (Analista de Administración de Ventas)
+fecha: 2026-05-15
+owner: Cristian Jhoan Serrato Mendoza
+---
+```
+
+**Extracción técnica de BD**:
+```yaml
+---
+proceso: gestion_humana
+nivel: intermedio
+perfil: ambos
+subproceso:
+area: Nómina (Liquidación de nómina y contratos)
+codigo:
+tipo_fuente: extraccion-bd
+fuente: ArsysNominaORF en olddto.orf.com (216 tablas) + ArsysRoa2026.Nomina (24 tablas)
+version: v1.0
+fecha: 2026-05-26
+owner: Oscar Alvarado Varón
+empresas: [Roa, TDH, InversionesRoa, SemillasDelHuila]
+bases_de_datos: [ArsysNominaORF, ArsysRoa2026]
 ---
 ```
 
