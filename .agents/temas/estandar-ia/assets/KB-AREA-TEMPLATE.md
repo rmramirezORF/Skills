@@ -1,12 +1,32 @@
 ---
 # ─── DIMENSIONES DE FILTRADO (las lee el ingester de ANIRO — OBLIGATORIAS) ───
-proceso: <slug-dominio>            # comercializacion_pt, gestion_humana, etc.
+# proceso: SOLO puede ser uno de los 21 procesos canónicos de ORF.
+#   Estratégicos (3):  planeacion_estrategica · riesgo_cumplimiento · revisoria_fiscal
+#   Misionales (10):   captacion_arroz · procesamiento_arroz · comercializacion_pt ·
+#                      logistica_pt · atencion_soporte_cliente · gestion_idi ·
+#                      aprovisionamiento_agroinsumos · mercadeo_agroinsumos ·
+#                      comercializacion_agroinsumos · logistica_agroinsumos
+#   Apoyo (8):         adquisiciones · mantenimiento_infraestructura · gestion_humana ·
+#                      gestion_financiera · tecnologia · calidad_medio_ambiente ·
+#                      gestion_calidad · gestion_administrativa
+#   Especial:          general (transversal — glosarios, mapa, business-logic)
+# Si tu KB documenta algo MÁS ESPECÍFICO que un proceso → va en `subproceso:`
+# (NUNCA pongas un sub-proceso en `proceso:`, ejemplo: NO uses proceso=liquidacion_nomina,
+#  usa proceso=gestion_humana + subproceso=liquidacion_nomina).
+proceso: <uno-de-los-21>
 nivel: <publico|intermedio|restrictivo>
 perfil: <funcional|tecnico|ambos>
 
 # ─── CONTEXTO ORGANIZACIONAL (recomendados) ───
-subproceso:                        # Subdivisión opcional (ej. cartera_blanco dentro de gestion_financiera)
-area:                              # Nombre humano del área (ej. "Cartera Blanco")
+# subproceso: Subdivisión específica del proceso. Puede ser un slug formal (ya en BD):
+#   cartera_blanco (de gestion_financiera) · go_to_market · trade_marketing · gestion_marcas
+#   (los 3 de comercializacion_pt) · sst (de gestion_humana)
+# O un slug informal descriptivo:
+#   liquidacion_nomina · liquidacion_contrato · prestaciones_sociales · seguridad_social
+#   (de gestion_humana) · tesoreria · contabilidad · costos · cartera_insumos
+#   (de gestion_financiera) · administracion_ventas · gestion_de_la_venta (de comercializacion_pt)
+subproceso:
+area:                              # Nombre humano del área (ej. "Cartera Blanco", "Nómina")
 codigo:                            # Código oficial del SIG (ej. CP-FI-01-V1, SC-CP-01-V1, CB-FM-11-V1)
 tipo_fuente:                       # entrevista | isotools | extraccion-bd | mixta
 fuente:                            # Detalle específico:
