@@ -1,21 +1,29 @@
 ---
-proceso: <slug-del-dominio-en-ANIRO>
+# ─── DIMENSIONES DE FILTRADO (las lee el ingester de ANIRO — OBLIGATORIAS) ───
+proceso: <slug-dominio>            # comercializacion_pt, gestion_humana, etc.
 nivel: <publico|intermedio|restrictivo>
 perfil: <funcional|tecnico|ambos>
 
-# Metadata extendida (no obligatoria para el ingester, sí útil para humanos)
-kb_id: KB-<AREA>-<NombreEspecifico>_v<MAJOR>_<minor>
-titulo: <Título humano del KB>
-area: <Nombre del área en lenguaje natural>
-version: v<MAJOR>.<minor>
-fecha: YYYY-MM-DD
-owner: <Persona o equipo responsable>
-fuentes:
-  - "<Fuente 1: BD, sistema, entrevista, etc.>"
-  - "<Fuente 2: ...>"
-empresas: [<lista de empresas del grupo que aplican>]
-bases_de_datos: [<lista de BDs relevantes>]
-jurisdiccion: Colombia (legislación local cuando aplique)
+# ─── CONTEXTO ORGANIZACIONAL (recomendados) ───
+subproceso:                        # Subdivisión opcional (ej. cartera_blanco dentro de gestion_financiera)
+area:                              # Nombre humano del área (ej. "Cartera Blanco")
+codigo:                            # Código oficial del SIG (ej. CP-FI-01-V1, SC-CP-01-V1, CB-FM-11-V1)
+tipo_fuente:                       # entrevista | isotools | extraccion-bd | mixta
+fuente:                            # Detalle específico:
+                                   #   - isotools → path del PDF original
+                                   #   - entrevista → nombre de la persona
+                                   #   - extraccion-bd → host/BD/path del código
+                                   #   - mixta → listar las fuentes
+
+# ─── METADATA EXTENDIDA (usar cuando aplican) ───
+titulo:                            # Título humano del KB
+version:                           # v1.0, v2.0...
+fecha:                             # YYYY-MM-DD del KB
+owner:                             # Persona o equipo responsable
+empresas: []                       # Cuando aplica
+bases_de_datos: []                 # Cuando es extracción técnica
+periodicidad:                      # Quincenal | Mensual | Anual...
+jurisdiccion:                      # Colombia, etc.
 ---
 
 # KB <NombreCompletoDelArea>
