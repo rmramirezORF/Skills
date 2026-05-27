@@ -18,79 +18,79 @@ description: Dynamic QA workflow for frontend, backend, or fullstack analysis.
 
 ---
 
-1. Execute EXE-ENR-ParsearHU_v1_0
+1. Execute exe-enr-parsear-hu-v1-0
    - Input: HU
 
-2. Execute EXE-ENR-ExtraerKeywordsHU_v1_0
-   - Input: EXE-ENR-ParsearHU_v1_0 output
+2. Execute exe-enr-extraer-keywords-hu-v1-0
+   - Input: exe-enr-parsear-hu-v1-0 output
 
 ---
 
-3. Execute SYS-QRY-AnalizarCodigo_v1_0
-   - Input: EXE-ENR-ExtraerKeywordsHU_v1_0 output
+3. Execute sys-qry-analizar-codigo-v1-0
+   - Input: exe-enr-extraer-keywords-hu-v1-0 output
 
-4. Execute ERP-QRY-AnalizarBD_v1_0 (ONLY if backend or fullstack)
-   - Input: EXE-ENR-ExtraerKeywordsHU_v1_0 output
+4. Execute erp-qry-analizar-bd-v1-0 (ONLY if backend or fullstack)
+   - Input: exe-enr-extraer-keywords-hu-v1-0 output
 
 ---
 
-5. Execute EXE-ENR-MapearTrazabilidad_v1_0 (ONLY if fullstack)
+5. Execute exe-enr-mapear-trazabilidad-v1-0 (ONLY if fullstack)
    - Input:
-     - EXE-ENR-ParsearHU_v1_0 output
-     - SYS-QRY-AnalizarCodigo_v1_0 output
-     - ERP-QRY-AnalizarBD_v1_0 output
+     - exe-enr-parsear-hu-v1-0 output
+     - sys-qry-analizar-codigo-v1-0 output
+     - erp-qry-analizar-bd-v1-0 output
 
 ---
 
-6. Execute EXE-VAL-EvaluarReglas_v1_0
+6. Execute exe-val-evaluar-reglas-v1-0
    - Input:
-     - EXE-ENR-ParsearHU_v1_0 output
-     - SYS-QRY-AnalizarCodigo_v1_0 output
-     - ERP-QRY-AnalizarBD_v1_0 output (if exists)
-     - EXE-ENR-MapearTrazabilidad_v1_0 output (if exists)
+     - exe-enr-parsear-hu-v1-0 output
+     - sys-qry-analizar-codigo-v1-0 output
+     - erp-qry-analizar-bd-v1-0 output (if exists)
+     - exe-enr-mapear-trazabilidad-v1-0 output (if exists)
 
 ---
 
-7. Execute EXE-VAL-DictaminarHU_v1_0
+7. Execute exe-val-dictaminar-hu-v1-0
    - Input:
-     - EXE-ENR-ParsearHU_v1_0 output
-     - SYS-QRY-AnalizarCodigo_v1_0 output
-     - ERP-QRY-AnalizarBD_v1_0 output (if exists)
-     - EXE-VAL-EvaluarReglas_v1_0 output
+     - exe-enr-parsear-hu-v1-0 output
+     - sys-qry-analizar-codigo-v1-0 output
+     - erp-qry-analizar-bd-v1-0 output (if exists)
+     - exe-val-evaluar-reglas-v1-0 output
 
 ---
 
-8. Execute EXE-VAL-MedirCobertura_v1_0
+8. Execute exe-val-medir-cobertura-v1-0
    - Input:
-     - EXE-ENR-ParsearHU_v1_0 output
-     - SYS-QRY-AnalizarCodigo_v1_0 output
-     - ERP-QRY-AnalizarBD_v1_0 output (if exists)
-     - EXE-ENR-MapearTrazabilidad_v1_0 output (if exists)
-     - EXE-VAL-EvaluarReglas_v1_0 output
-     - EXE-VAL-DictaminarHU_v1_0 output
+     - exe-enr-parsear-hu-v1-0 output
+     - sys-qry-analizar-codigo-v1-0 output
+     - erp-qry-analizar-bd-v1-0 output (if exists)
+     - exe-enr-mapear-trazabilidad-v1-0 output (if exists)
+     - exe-val-evaluar-reglas-v1-0 output
+     - exe-val-dictaminar-hu-v1-0 output
 
 ---
 
-9. Execute EXE-ENR-GenerarSugerencias_v1_0
+9. Execute exe-enr-generar-sugerencias-v1-0
    - Input:
-     - EXE-VAL-DictaminarHU_v1_0 output
-     - EXE-VAL-EvaluarReglas_v1_0 output
-     - EXE-VAL-MedirCobertura_v1_0 output
+     - exe-val-dictaminar-hu-v1-0 output
+     - exe-val-evaluar-reglas-v1-0 output
+     - exe-val-medir-cobertura-v1-0 output
 
 ---
 
-10. Execute EXE-ENR-GenerarPruebas_v1_0
+10. Execute exe-enr-generar-pruebas-v1-0
     - Input:
-      - EXE-ENR-ParsearHU_v1_0 output
-      - EXE-VAL-DictaminarHU_v1_0 output
-      - EXE-VAL-EvaluarReglas_v1_0 output
+      - exe-enr-parsear-hu-v1-0 output
+      - exe-val-dictaminar-hu-v1-0 output
+      - exe-val-evaluar-reglas-v1-0 output
 
 ---
 
-11. Execute EXE-SUM-ConsolidarResultadoQA_v1_0
+11. Execute exe-sum-consolidar-resultado-qa-v1-0
     - Input:
-      - EXE-VAL-DictaminarHU_v1_0
-      - EXE-VAL-MedirCobertura_v1_0
-      - EXE-VAL-EvaluarReglas_v1_0
-      - EXE-ENR-GenerarSugerencias_v1_0
-      - EXE-ENR-GenerarPruebas_v1_0
+      - exe-val-dictaminar-hu-v1-0
+      - exe-val-medir-cobertura-v1-0
+      - exe-val-evaluar-reglas-v1-0
+      - exe-enr-generar-sugerencias-v1-0
+      - exe-enr-generar-pruebas-v1-0

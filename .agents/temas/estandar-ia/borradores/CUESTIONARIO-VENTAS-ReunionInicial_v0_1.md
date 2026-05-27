@@ -13,16 +13,16 @@ alcance:
   - Módulo de Ventas en sistema (SAL en Arsys/ERP)
   - Catálogo de productos/servicios de ORF
 referencias:
-  - .agents/temas/estandar-ia/skills/GOV-ENR-DocumentarArea_v1_0/SKILL.md
+  - .agents/temas/estandar-ia/skills/gov-enr-documentar-area-v1-0/SKILL.md
   - .agents/temas/estandar-ia/assets/KB-AREA-TEMPLATE.md
-  - .agents/temas/estandar-ia/skills/GOV-CTX-DisenarRAG_v1_0/SKILL.md
+  - .agents/temas/estandar-ia/skills/gov-ctx-disenar-rag-v1-0/SKILL.md
 ---
 
 # Cuestionario — Reunión inicial con equipo de Ventas de ORF
 
 > **Propósito:** recopilar el conocimiento operativo del área de Ventas para construir, en una segunda etapa, un RAG (Retrieval-Augmented Generation) que apoye al equipo comercial.
 >
-> Este documento sigue las **8 fases** de la skill `GOV-ENR-DocumentarArea_v1_0`. Después de la reunión, las notas alimentarán tres documentos KB separados:
+> Este documento sigue las **8 fases** de la skill `gov-enr-documentar-area-v1-0`. Después de la reunión, las notas alimentarán tres documentos KB separados:
 > - `KB-VENTAS-ProcesoComercial_v1_0.md`
 > - `KB-VENTAS-ModuloSistema_v1_0.md`
 > - `KB-VENTAS-Catalogo_v1_0.md`
@@ -482,9 +482,9 @@ Pistas: cuadre de comisiones, cumplimiento de cuota, cierre mensual, conciliaci�
 - [ ] Validar las definiciones del glosario con el experto antes de cerrar v1_0.
 - [ ] Listar qué secciones quedaron como `[PENDIENTE]` y a qué persona preguntarle.
 - [ ] Pasar los temas de la tabla "Temas que derivan a otras áreas" a backlog de futuras entrevistas.
-- [ ] Invocar `@repertorio estandar-ia` con la skill `GOV-ENR-DocumentarArea_v1_0` para producir los tres archivos:
+- [ ] Invocar `@repertorio estandar-ia` con la skill `gov-enr-documentar-area-v1-0` para producir los tres archivos:
   - [ ] `KB-VENTAS-ProcesoComercial_v1_0.md`
   - [ ] `KB-VENTAS-ModuloSistema_v1_0.md`
   - [ ] `KB-VENTAS-Catalogo_v1_0.md`
-- [ ] Una vez exista corpus → invocar `GOV-CTX-DisenarRAG_v1_0` para definir las 7 dimensiones técnicas del RAG (chunking, embedding, vector store, retrieval, re-ranking, citación, evaluación).
+- [ ] Una vez exista corpus → invocar `gov-ctx-disenar-rag-v1-0` para definir las 7 dimensiones técnicas del RAG (chunking, embedding, vector store, retrieval, re-ranking, citación, evaluación).
 - [ ] Definir dataset de evaluación con ≥30 preguntas y ground truth (requisito del estándar de RAG).
