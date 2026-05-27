@@ -181,33 +181,122 @@ bases_de_datos: [ArsysNominaORF, ArsysRoa2026]
 ---
 ```
 
-### Tabla de `proceso:` (slugs válidos en BD `app.domains`)
+### Tabla de `proceso:` — los **21 procesos canónicos** de ORF (vocabulario cerrado)
+
+> **REGLA CRÍTICA**: `proceso:` SOLO puede ser uno de estos 21 valores. Si lo que documentas no encaja en ninguno, NO inventes un nuevo proceso → usa `subproceso:` (ver siguiente sección). El error más común es poner el sub-proceso en `proceso:` (ej. `proceso: liquidacion_nomina` cuando debería ser `proceso: gestion_humana, subproceso: liquidacion_nomina`).
+
+**Procesos estratégicos (3)** — ¿hacia dónde vamos?
 
 | Slug | Significado |
 |---|---|
-| `general` | Transversal — glosario, mapa de procesos, business-logic, qué es ORF |
-| `atencion_soporte_cliente` | PQRSF, autorizaciones, soporte post-venta |
-| `captacion_arroz` | Recepción y pesaje de materia prima |
-| `procesamiento_arroz` | Transformación paddy → blanco |
-| `comercializacion_pt` | Ventas, gestión comercial, administración de ventas |
-| `go_to_market` | Subdominio de comercializacion_pt |
-| `trade_marketing` | Subdominio de comercializacion_pt |
-| `gestion_marcas` | Estrategia de marcas |
-| `logistica_pt` | Despachos, devoluciones de producto terminado |
-| `gestion_financiera` | Tesorería, contabilidad, costos |
-| `cartera_blanco` | Crédito y recaudo de clientes |
+| `planeacion_estrategica` | Directivas, definición de metas, estrategia |
+| `riesgo_cumplimiento` | Cumplimientos normativos, controles internos |
 | `revisoria_fiscal` | Auditoría legal |
-| `gestion_humana` | Talento, nómina, SST |
-| `sst` | Seguridad y salud en el trabajo |
-| `aprovisionamiento_agroinsumos` / `mercadeo_agroinsumos` / `comercializacion_agroinsumos` / `logistica_agroinsumos` | Cadena agroinsumos |
-| `adquisiciones` | Compras generales (no agroinsumos) |
-| `mantenimiento_infraestructura` | Infraestructura |
-| `gestion_calidad` / `calidad_medio_ambiente` | Calidad de producto / Calidad SIG |
-| `tecnologia` | TI |
-| `gestion_administrativa` | Archivo, jurídica, seguridad física |
-| `planeacion_estrategica` / `riesgo_cumplimiento` / `gestion_idi` | Estratégicos / I+D |
 
-> Si el slug no existe en `app.domains`, el ingester cae al **fallback de path** (la carpeta del archivo). Si tampoco coincide → el doc se ingesta con `domain_id=NULL` y queda como "transversal/legacy".
+**Procesos misionales (10)** — ¿qué hacemos? (el core del negocio)
+
+| Slug | Cadena | Significado |
+|---|---|---|
+| `captacion_arroz` | Arroz | Recepción y pesaje de materia prima (paddy) |
+| `procesamiento_arroz` | Arroz | Trilla, molino — paddy → arroz blanco |
+| `comercializacion_pt` | Arroz | Ventas, gestión comercial de PT (incluye Adm. de Ventas, GTM, Trade, Marcas) |
+| `logistica_pt` | Arroz | Despachos, devoluciones de producto terminado |
+| `atencion_soporte_cliente` | Arroz | PQRSF, autorizaciones, soporte post-venta |
+| `aprovisionamiento_agroinsumos` | Agroinsumos | Compra de fertilizantes, agroquímicos, semillas |
+| `mercadeo_agroinsumos` | Agroinsumos | Estrategia de comunicación y posicionamiento |
+| `comercializacion_agroinsumos` | Agroinsumos | Venta a productores agrícolas |
+| `logistica_agroinsumos` | Agroinsumos | Distribución y entrega |
+| `gestion_idi` | Otras | Investigación y desarrollo (I+D+i) |
+
+> *Nota: `gestion_calidad` (aseguramiento de producto) técnicamente es misional según el mapa, pero suele tratarse como apoyo. Por convención lo listamos como apoyo abajo.*
+
+**Procesos de apoyo (8)** — ¿quién sostiene la operación? (transversales)
+
+| Slug | Significado |
+|---|---|
+| `adquisiciones` | Compras generales (no agroinsumos) |
+| `mantenimiento_infraestructura` | Infraestructura, equipos, plantas |
+| `gestion_humana` | Talento, nómina, SST, capacitación |
+| `gestion_financiera` | Tesorería, contabilidad, cartera, costos, tributario |
+| `tecnologia` | TI: ARSYS, PDA, dashboards |
+| `calidad_medio_ambiente` | Calidad de gestión SIG + medio ambiente |
+| `gestion_calidad` | Calidad de producto terminado |
+| `gestion_administrativa` | Archivo documental, jurídica, seguridad física |
+
+**Especial: `general`** — transversal a TODO
+
+| Slug | Cuándo usar |
+|---|---|
+| `general` | Cuando el KB NO pertenece a un proceso específico sino que es transversal: glosarios, mapa de procesos, business-logic, "qué es ORF". Vive en `docs/rules/general/`. |
+
+---
+
+### Regla de decisión: proceso vs subproceso vs nuevo
+
+```
+                ¿Mi KB documenta uno de los 21 procesos canónicos?
+                              │
+                ┌─────────────┴─────────────┐
+                ▼                           ▼
+               SÍ                          NO
+                │                           │
+                ▼                           ▼
+   proceso: <slug>          ¿Es parte de un proceso canónico?
+   subproceso: (vacío)                     │
+                              ┌────────────┴────────────┐
+                              ▼                         ▼
+                             SÍ                        NO
+                              │                         │
+                              ▼                         ▼
+                  proceso: <padre>            Esto NO debería pasar.
+                  subproceso: <mi-slug>       Es señal de que el mapa
+                                              de procesos necesita
+                                              actualización formal.
+                                              → Marcar con [PROPUESTO]
+                                              y discutir con gobierno IA
+                                              antes de ingestar.
+```
+
+### `subproceso:` — formales conocidos
+
+Estos sub-procesos YA existen como dominios en BD (legacy o por necesidad operativa). Si tu KB documenta uno de estos, ponlo en `subproceso:` y el `proceso:` padre arriba.
+
+| Subproceso (slug) | Proceso padre |
+|---|---|
+| `go_to_market` | `comercializacion_pt` |
+| `trade_marketing` | `comercializacion_pt` |
+| `gestion_marcas` | `comercializacion_pt` |
+| `cartera_blanco` | `gestion_financiera` |
+| `sst` | `gestion_humana` |
+
+### `subproceso:` — informales (sin slug propio en BD, pero conceptualmente válidos)
+
+Si tu KB documenta uno de estos, ponlo como string libre en `subproceso:`. Son sub-procesos reales del negocio aunque no tengan dominio dedicado:
+
+| Subproceso sugerido | Proceso padre | Ejemplo de uso |
+|---|---|---|
+| `liquidacion_nomina` | `gestion_humana` | `proceso: gestion_humana, subproceso: liquidacion_nomina` |
+| `liquidacion_contrato` | `gestion_humana` | Retiro de empleado |
+| `prestaciones_sociales` | `gestion_humana` | Cesantías, primas, vacaciones |
+| `seguridad_social` | `gestion_humana` | PILA, aportes EPS/ARL/AFP |
+| `tesoreria` | `gestion_financiera` | Pagos, MOVBAT |
+| `contabilidad` | `gestion_financiera` | Asientos contables |
+| `costos` | `gestion_financiera` | P&L precomputado |
+| `cartera_insumos` | `gestion_financiera` | Crédito de agroinsumos |
+| `administracion_ventas` | `comercializacion_pt` | Reportería comercial, indicadores |
+| `gestion_de_la_venta` | `comercializacion_pt` | Procedimiento del rep (CP-CP-03-V2) |
+
+### ¿Y si mi proceso no encaja en NINGUNO de los 21?
+
+Esto **NO debería pasar** en el negocio actual de ORF. Pero si lo encuentras:
+
+1. **PARA antes de ingestar**. No inventes un nuevo proceso top-level.
+2. **Revisa el mapa de procesos** (`docs/rules/general/mapa-procesos-orf.md`) — quizá el slug existe con un nombre que no esperabas.
+3. **Pregunta al equipo de gobierno IA**: ¿este KB es un sub-proceso de algún proceso canónico? ¿O realmente es un proceso nuevo que falta en el mapa oficial?
+4. Si es **sub-proceso nuevo** → ponle slug descriptivo en `subproceso:` con `proceso:` padre. Documéntalo aquí para que se agregue a la lista informal.
+5. Si es **proceso nuevo real** (rarísimo) → requiere actualización del mapa oficial ORF-STD-IA → no es decisión individual.
+
+> El ingester actual tiene un **fallback de path** (gracias al hardening): si `proceso:` no existe en BD, usa la carpeta del archivo como respaldo. Eso evita que el doc se pierda, pero **NO es excusa** para poner slugs inválidos en el frontmatter.
 
 ### Tabla de `nivel:`
 
