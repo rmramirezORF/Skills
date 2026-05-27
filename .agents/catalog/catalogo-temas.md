@@ -12,7 +12,6 @@ Este índice se carga **solo cuando** se activa `@repertorio`. Lista los temas *
 | **Calidad** | "calidad", "estándares Arsys", "code review", "buenas prácticas", "convenciones" | Por definir | `temas/calidad/` |
 | **Documentación** | "README", "ADR", "changelog", "documenta", "manual" | Por definir | `temas/documentacion/` |
 | **Bugs** | "bug", "error", "fallo", "no funciona", "rompió", "incidente" | Por definir | `temas/bugs/` |
-<<<<<<< HEAD
 | **Frontend** | "componente", "UI", "vista", "estilo", "responsive", "accesibilidad", "pantalla", "formulario", "grid", "layout", "WebForms", ".aspx", "DevExpress", "XtraGrid", "WinForms", "auditoría UX", "modernizar pantalla", "versionado" | Por definir | `temas/frontend/` |
 | **Git** | "commit", "rama", "merge", "release", "git" | No | `temas/git/` |
 | **Meta** | "nueva skill", "crear skill", "agregar tema" | No | `temas/meta/` |
@@ -47,11 +46,7 @@ Los temas de negocio (nómina, contabilidad, facturación, etc.) NO viven aquí 
 | Calidad | 0 | — | 🟡 Placeholder |
 | Documentación | 0 | — | 🟡 Placeholder |
 | Bugs | 0 | — | 🟡 Placeholder |
-<<<<<<< HEAD
 | Frontend | 2 (ux-enterprise, version) | — | ✅ Operativo |
-=======
-| Frontend | 1 (ux-enterprise) | — | ✅ Operativo |
->>>>>>> 0fb7e17492fadbb6d24ee9637dc3946b3d816e67
 | Git | 1 (commit-guides) | — | ✅ Operativo |
 | Meta | 1 (skill-creator) | — | ✅ Operativo |
 
@@ -59,8 +54,9 @@ Los temas de negocio (nómina, contabilidad, facturación, etc.) NO viven aquí 
 
 ## Convenciones del repertorio
 
-- **kebab-case** para nombres de skills y temas.
-- `SKILL.md` siempre en mayúsculas.
+- **Activos formales** (skills, prompts, KBs) → estándar **ORF-STD-IA-2026-01**: nombre canónico `FUENTE-TIPO-Nombre_vMAJOR_minor` (códigos en MAYÚSCULA + guion, nombre en PascalCase + snake_case). Ej: `gov-ctx-nombrar-activo-ia-v1-0`.
+- **Carpetas organizativas** (temas, agrupaciones, subdominios) → **kebab-case**. Ej: `temas/estandar-ia/`, `temas/hu/`, `temas/frontend/`.
+- **Archivos especiales** (siempre en MAYÚSCULA): `SKILL.md`, `README.md`, `WORKFLOW.md`, `PERFIL.md`, `REPERTORIO.md`.
 - Cada skill autodocumentada en su `SKILL.md` (frontmatter + instrucciones).
 - Cada tema con `README.md` que describa su alcance.
 - Workflows opcionales en `WORKFLOW.md` cuando hay secuencia determinista.

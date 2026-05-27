@@ -41,13 +41,13 @@ Este índice se carga **solo cuando** se activa `@repertorio` con referencia a u
 2. Agregar entrada en este `catalogo-personas.md`.
 3. Cuando la persona registre temas, completar la tabla de dominios.
 
-(El skill `meta/GOV-CTX-CrearActivoIA_v1_0` puede automatizar este scaffolding.)
+(El skill `meta/gov-ctx-crear-activo-ia-v1-0` puede automatizar este scaffolding.)
 
 ---
 
 ## Cómo registrar un tema de negocio para una persona
 
-1. Copiar la plantilla `temas/meta/skills/GOV-CTX-CrearActivoIA_v1_0/assets/TEMA-NEGOCIO-TEMPLATE/`
+1. Copiar la plantilla `temas/meta/skills/gov-ctx-crear-activo-ia-v1-0/assets/TEMA-NEGOCIO-TEMPLATE/`
    a `personas/<nombre>/temas/<dominio>/`.
 2. Completar `README.md`, `glosario.md`, `WORKFLOW.md` (si aplica) y las skills.
 3. Actualizar el `PERFIL.md` de la persona con el nuevo dominio.

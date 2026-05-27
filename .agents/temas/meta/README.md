@@ -6,7 +6,7 @@ Skills sobre el propio repertorio: crear nuevas skills, agregar temas, mantener 
 
 | Skill | Propósito |
 |---|---|
-| [`GOV-CTX-CrearActivoIA_v1_0`](skills/GOV-CTX-CrearActivoIA_v1_0/SKILL.md) | Crea nuevas skills siguiendo el spec del repertorio |
+| [`gov-ctx-crear-activo-ia-v1-0`](skills/gov-ctx-crear-activo-ia-v1-0/SKILL.md) | Crea nuevas skills siguiendo el spec del repertorio |
 
 ## Skills futuras (sugeridas)
 
